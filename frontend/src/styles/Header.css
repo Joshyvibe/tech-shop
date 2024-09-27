@@ -1,0 +1,86 @@
+/* header.css */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.header-bg {
+    width: 70%;
+    max-width: 550px;
+    object-fit: cover;
+}
+
+.header-content {
+    margin-left: 20px;
+}
+
+.header h1 {
+    font-size: 5em;
+    margin: 0 0 10px 0;
+    line-height: 110%;
+    margin-left: 50px;
+    color: #091251;
+    font-weight: 700;
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+
+.header h3 {
+    font-size: 3.5em;
+    margin: 0;
+    margin-left: 50px;
+    color: #091251;
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+    animation-delay: 1s;
+}
+.header button {
+    font-size: 1em;
+    border: none;
+    margin: 0;
+    margin-left: 50px;
+    color: whitesmoke;
+    background-color: #3D56FF;
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+    animation-delay: 1s;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-bg {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .header-content {
+        margin-left: 0;
+    }
+
+    .header h1,
+    .header h3 {
+        animation: none;
+        opacity: 1;
+    }
+}

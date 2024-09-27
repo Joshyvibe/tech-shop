@@ -1,0 +1,92 @@
+/* Navbar.css */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: whitesmoke;
+}
+
+.navbar-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-logo {
+    height: 50px;
+    cursor: pointer;
+}
+
+.navbar-menu-left,
+.navbar-menu-right {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu-left {
+    margin-left: 80px; /* Add space between the logo and left menu */
+    gap: 55px;
+}
+
+.navbar-menu-left a {
+    color: #5f6063;
+    text-decoration: none; /* Remove underline */
+}
+
+.navbar-menu-left a:hover {
+    color: #171717;
+}
+
+.navbar-menu-right {
+    margin-left: auto;
+}
+
+.navbar-menu-right a {
+    text-decoration: none; /* Remove underline */
+}
+
+.navbar-menu li {
+    position: relative;
+}
+
+
+.button-link {
+    background-color: #3D56FF;
+    color: white !important;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.button-link-login {
+    color: #3D56FF;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+}
+
+.button-link:hover,
+.button-link:focus {
+    background-color: #2C44CC;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .navbar-menu-left,
+    .navbar-menu-right {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .navbar-menu-right {
+        margin-left: 0;
+    }
+}
