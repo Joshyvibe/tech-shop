@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 from datetime import timedelta
 
@@ -24,17 +25,18 @@ from corsheaders.defaults import default_headers
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7=e$*fnc3+ogpsh##^*49u6e*h$vcaj8!9+r34os8w+j6#xz1v'
+SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,12 +90,29 @@ WSGI_APPLICATION = 'tech_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+database_password = config("DATABASE_PASSWORD")
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'default': {   
+         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+         'NAME': 'tech_shop_db',
+         'USER': 'tech_shop_db_user',
+         'PASSWORD': database_password,
+         'HOST': 'dpg-cv3g4tl2ng1s738063a0-a',
+         'PORT': '5432',
     }
 }
+
+
+
 
 
 # Password validation
@@ -134,9 +154,15 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True - # FOR DEV PURPOSE ONLY 
 
 CORS_ALLOWS_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    'https://tech-shop-rho.vercel.app/',  # Frontend URL PRD
+]
+
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -164,6 +190,8 @@ MEDIA_ROOT = BASE_DIR /'media'
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -183,6 +211,6 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SOCIALACCOUNT_STORE_TOKENS = True
 
-from decouple import config
+
 
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
