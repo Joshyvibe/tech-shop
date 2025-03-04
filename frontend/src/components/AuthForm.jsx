@@ -27,7 +27,7 @@ const AuthForm = ({ route, method}) => {
             if (method === 'login') {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                navigate("/dashboard");
+                navigate("/dashboard", { replace: true });
             } else {
                 setSucess("Registration successful. Please login.");
                 const timer = setTimeout(() => navigate("/login", { replace: true }), 2000);
