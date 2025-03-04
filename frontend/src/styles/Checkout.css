@@ -1,0 +1,70 @@
+/* Checkout.css */
+
+.checkout-container {
+    max-width: 600px; /* Adjust width as needed */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add padding */
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+h1 {
+    text-align: center; /* Center the heading */
+    color: #333; /* Darker color for contrast */
+}
+
+.checkout-form {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+}
+
+.checkout-input {
+    padding: 10px; /* Add padding to inputs */
+    margin-bottom: 15px; /* Space between inputs */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners for inputs */
+    font-size: 16px; /* Larger font for better readability */
+}
+
+.checkout-input:focus {
+    border-color: #4CAF50; /* Change border color on focus */
+    outline: none; /* Remove outline */
+}
+
+.order-summary {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0; /* Remove padding */
+    margin: 15px 0; /* Margin above and below */
+    background-color: #fff; /* White background for summary */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px; /* Inner padding */
+}
+
+.order-item {
+    display: flex; /* Use flexbox for item layout */
+    justify-content: space-between; /* Space items */
+    padding: 5px 0; /* Vertical padding */
+}
+
+.total-price {
+    font-weight: bold; /* Bold the total price */
+    text-align: right; /* Align to the right */
+    margin-top: 10px; /* Space above total price */
+}
+
+.checkout-button {
+    padding: 10px; /* Padding for button */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Larger font */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.checkout-button:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}

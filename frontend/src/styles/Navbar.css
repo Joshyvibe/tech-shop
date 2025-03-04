@@ -78,6 +78,44 @@
     color: white;
 }
 
+/* Navbar.css */
+.dashboard-icon {
+    width: 40px;  /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    background-color: #3D56FF; /* Example background color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Makes it circular */
+    font-size: 16px; /* Font size for initials */
+    margin-right: 10px; /* Space between the icon and logout */
+}
+.dashboard-icon a{
+    color: white!important; /* Text color */
+}
+
+.cart-icon {
+    position: relative;
+    margin-right: 20px;
+}
+
+.cart-icon i {
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 50%;
+}
+
 @media (max-width: 768px) {
     .navbar-menu-left,
     .navbar-menu-right {

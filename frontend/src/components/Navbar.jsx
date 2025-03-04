@@ -3,11 +3,14 @@ import {Link} from "react-router-dom";
 import logo from "../assets/logo.png";
 import '../styles/Navbar.css';
 import { useAuthentication } from "../auth";
+import { useCart } from "./CartContext";
 
 
 function Navbar() {
 
     const {isAuthorized, logout} = useAuthentication();
+    const { state } = useCart();
+    const cart = state.cart || [];
 
     const handleLogout = () => {
         logout();
@@ -31,9 +34,19 @@ function Navbar() {
             </ul>
             <ul className="navbar-menu-right">
                 {isAuthorized ? (
-                    <li>
-                        <Link onClick={handleLogout} to="/logout" className="button-link">Logout</Link>
-                    </li>
+                    <>
+                        <li className="dashboard-icon">
+                            <Link to="/dashboard">DB</Link>
+                        </li>
+                        <li className="cart-icon">
+                            <Link to="/cart">
+                                <span className="cart-count">{cart.length}</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link onClick={handleLogout} to="/logout" className="button-link">Logout</Link>
+                        </li>
+                    </>
                 ) : (
                     <>
                         <li>

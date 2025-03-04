@@ -1,0 +1,109 @@
+.cart-container {
+    padding: 20px;
+    max-width: 800px; /* Limit the width for better readability */
+    margin: auto; /* Center the container */
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px;
+    background-color: #fff; /* White background for items */
+    transition: box-shadow 0.2s ease; /* Smooth transition for shadow */
+}
+
+.cart-item:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Elevate on hover */
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px; /* Rounded image corners */
+}
+
+.cart-item-info {
+    margin-left: 20px;
+    flex-grow: 1; /* Allow item info to take available space */
+}
+
+.cart-item-info h3 {
+    margin-bottom: 5px; /* Reduced margin for better spacing */
+    font-size: 1.2rem; /* Slightly larger font */
+    color: #333; /* Darker text color for better contrast */
+}
+
+.cart-item-info p {
+    margin: 5px 0; /* Consistent vertical spacing for paragraphs */
+}
+
+button {
+    border: none;
+    border-radius: 4px; /* Rounded button corners */
+    padding: 8px 12px; /* Consistent padding for buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for button colors */
+}
+
+.remove-btn {
+    background-color: #ff4d4f;
+    color: white;
+}
+
+.remove-btn:hover {
+    background-color: #d60000; /* Darker red on hover */
+}
+
+.increase-btn,
+.decrease-btn {
+    background-color: #007bff; /* Blue for increase/decrease buttons */
+    color: white;
+    margin-right: 5px; /* Space between buttons */
+}
+
+.increase-btn:hover,
+.decrease-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.clear-cart-btn {
+    background-color: #ff4d4f;
+    color: white;
+}
+
+.clear-cart-btn:hover {
+    background-color: #d60000; /* Darker red on hover */
+}
+
+.cart-actions {
+    margin-top: 20px;
+    display: flex; /* Flexbox for actions */
+    justify-content: space-between; /* Space between actions */
+    align-items: center; /* Align items vertically */
+}
+
+.cart-actions p {
+    font-size: 1.5rem; /* Larger total price */
+    font-weight: bold;
+    color: #333; /* Darker color for contrast */
+}
+
+.checkout-btn {
+    background-color: #28a745; /* Green for checkout button */
+    color: white;
+}
+
+.checkout-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
