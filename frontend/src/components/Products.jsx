@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import '../styles/Products.css';
 import "react-toastify/dist/ReactToastify.css";
 import { useCart } from "./CartContext";
-import { useAuthentication } from "../auth";
+import { useAuth } from "../auth.jsx";
 import { useNavigate } from "react-router-dom";
 import ReviewsList from "./ReviewList";
 
@@ -12,7 +12,7 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
     const { addToCart } = useCart();
-    const { isAuthorized } = useAuthentication();
+    const { isAuthorized } = useAuth();
     const navigate = useNavigate();
     const [reviews, setReviews] = useState({});
     const [loadingReviews, setLoadingReviews] = useState({});

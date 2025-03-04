@@ -1,41 +1,47 @@
 import api from "../api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../token";
+import { GOOGLE_ACCESS_TOKEN } from "../token";
 import "../styles/AuthForm.css";
 import google from "../assets/google.png";
+import { useAuth } from "../auth";
 
-
-const AuthForm = ({ route, method}) => {
+const AuthForm = ({ route, method }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [sucess, setSucess] = useState(null);
+    const [success, setSuccess] = useState(null);
     const navigate = useNavigate();
+    
+    // Replace useAuthentication with useAuth
+    const { login, isAuthorized } = useAuth();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
         setError(null);
-        setSucess(null);
-        
+        setSuccess(null);
 
         try {
-            const res = await api.post(route, { username, password });
-
-            if (method === 'login') {
-                localStorage.setItem(ACCESS_TOKEN, res.data.access);
-                localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                navigate("/dashboard", { replace: true });
+            if (method === "login") {
+                // Use the login method from AuthContext
+                const success = await login({ username, password });
+                
+                if (success) {
+                    navigate("/dashboard", { replace: true });
+                } else {
+                    setError("Login failed. Please check your credentials.");
+                }
             } else {
-                setSucess("Registration successful. Please login.");
-                const timer = setTimeout(() => navigate("/login", { replace: true }), 2000);
-                return () => clearTimeout(timer);
+                // Registration logic
+                const res = await api.post(route, { username, password });
+                setSuccess("Registration successful. Please login.");
+                setTimeout(() => navigate("/login", { replace: true }), 2000);
             }
-        }   catch (error) {
-              console.error(error);
-              if (error.response) {
+        } catch (error) {
+            console.error(error);
+            if (error.response) {
                 if (error.response.status === 401) {
                     setError("Invalid credentials");
                 } else if (error.response.status === 400) {
@@ -43,12 +49,12 @@ const AuthForm = ({ route, method}) => {
                 } else {
                     setError("Something went wrong. Please try again.");
                 }
-              } else if (error.request) {
+            } else if (error.request) {
                 setError("Network error. Please check your internet connection.");
-              } else {
+            } else {
                 setError("Something went wrong. Please try again.");
-              }
-        }   finally {
+            }
+        } finally {
             setLoading(false);
         }
     };
@@ -57,6 +63,28 @@ const AuthForm = ({ route, method}) => {
         window.location.href = "http://localhost:8000/accounts/google/login/";
     };
 
+    useEffect(() => {
+        const handleGoogleCallback = async () => {
+            // Check if we are on the callback page
+            if (window.location.pathname === '/google-callback') {
+                // Extract the token from URL query params
+                const params = new URLSearchParams(window.location.search);
+                const googleToken = params.get("access_token");
+
+                if (googleToken) {
+                    localStorage.setItem(GOOGLE_ACCESS_TOKEN, googleToken);
+                    
+                    // Validate the token through the AuthContext
+                    await login({ google_token: googleToken });
+                    navigate("/dashboard", { replace: true });
+                }
+            }
+        };
+
+        handleGoogleCallback();
+    }, [navigate, login]);
+
+    // Rest of the component remains the same...
     return (
         <div className="form-container">
             {loading && (
@@ -66,48 +94,56 @@ const AuthForm = ({ route, method}) => {
             )}
             {!loading && (
                 <form onSubmit={handleSubmit} className="form">
-                    <h2>{method === 'register' ? 'Register' : 'Login' }</h2>
+                    <h2>{method === "register" ? "Register" : "Login"}</h2>
                     {error && <div className="error-message">{error}</div>}
-                    {sucess && <div className="success-message">{sucess}</div>}
+                    {success && <div className="success-message">{success}</div>}
                     <div className="form-group">
                         <label htmlFor="username">Username:</label>
-                        <input 
-                            type="text" 
-                            id="username" 
-                            value={username} 
-                            onChange={(e) => setUsername(e.target.value)} 
-                            required />
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="username">Password:</label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            value={password}  
-                            onChange={(e) => setPassword(e.target.value)} 
-                            required />
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
                     </div>
                     <button type="submit" className="form-button">
-                        {method === 'register'? 'Register' : 'Login'}
+                        {method === "register" ? "Register" : "Login"}
                     </button>
                     <button type="button" className="google-button" onClick={handleGoogleLogin}>
                         <img src={google} alt="Google icon" className="google-icon" />
-                        {method === 'register'? 'Register with Google' : 'Login with Google'}
+                        {method === "register" ? "Register with Google" : "Login with Google"}
                     </button>
-                    {method === 'login' && (
-                        <p className="toggle-text">Don't have an account? 
-                        <span className="toggle-link" onClick={() => navigate("/register")}>Register</span></p>
+                    {method === "login" && (
+                        <p className="toggle-text">
+                            Don't have an account?
+                            <span className="toggle-link" onClick={() => navigate("/register")}>
+                                Register
+                            </span>
+                        </p>
                     )}
-                    {method ==='register' && (
-                        <p className="toggle-text">Already have an account? 
-                        <span className="toggle-link" onClick={() => navigate("/login")}>Login</span></p>
+                    {method === "register" && (
+                        <p className="toggle-text">
+                            Already have an account?
+                            <span className="toggle-link" onClick={() => navigate("/login")}>
+                                Login
+                            </span>
+                        </p>
                     )}
                 </form>
             )}
         </div>
-    )
-
-
-}
-
+    );
+};
+   
 export default AuthForm;

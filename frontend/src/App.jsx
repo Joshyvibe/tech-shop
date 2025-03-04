@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar"
 import NotFound from "./pages/NotFound"
 import Home from "./pages/Home"
 import AuthPage from "./pages/AuthPage"
-import { useAuthentication } from "./auth"
+import { useAuth } from "./auth"
 import RedirectGoogleAuth from "./components/GoogleRedirectHandler"
 import Dashboard from "./components/Dashboard"
 import AdminProductList from "./components/AdminProductList"
@@ -17,7 +17,7 @@ import ReviewForm from "./components/ReviewForm"
 
 function App() {
 
-  const {isAuthorized} = useAuthentication()
+  const {isAuthorized} = useAuth()
   const ProtectedLogin = () => {
     return isAuthorized ? <Navigate to='/dashboard' /> : <AuthPage initialMethod='login' />
   }

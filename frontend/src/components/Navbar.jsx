@@ -2,19 +2,23 @@ import React from "react";
 import {Link} from "react-router-dom";
 import logo from "../assets/logo.png";
 import '../styles/Navbar.css';
-import { useAuthentication } from "../auth";
+import { useAuth } from "../auth";
 import { useCart } from "./CartContext";
+import { useNavigate } from "react-router-dom";
 
 
 function Navbar() {
+    
+    const navigate = useNavigate();
 
-    const {isAuthorized, logout} = useAuthentication();
+    const {isAuthorized, logout} = useAuth();
     const { state } = useCart();
     const cart = state.cart || [];
 
     const handleLogout = () => {
         logout();
-    }
+        navigate('/');
+    };
 
     return (
         <div className="navbar">
@@ -44,7 +48,7 @@ function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link onClick={handleLogout} to="/logout" className="button-link">Logout</Link>
+                            <button onClick={handleLogout} className="button-link">Logout</button>
                         </li>
                     </>
                 ) : (
