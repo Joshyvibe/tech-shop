@@ -19,6 +19,7 @@ const AuthForm = ({ route, method}) => {
         setLoading(true);
         setError(null);
         setSucess(null);
+        
 
         try {
             const res = await api.post(route, { username, password });
@@ -26,13 +27,12 @@ const AuthForm = ({ route, method}) => {
             if (method === 'login') {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                navigate("/dashboard");
-                window.location.reload();
+                navigate("/dashboard", { replace: true });
+                
             } else {
                 setSucess("Registration successful. Please login.");
-                setTimeout(() => {
-                    navigate("/login");
-                }, 2000)
+                const timer = setTimeout(() => navigate("/login", { replace: true }), 2000);
+                return () => clearTimeout(timer);
             }
         }   catch (error) {
               console.error(error);
