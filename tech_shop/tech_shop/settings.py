@@ -159,7 +159,7 @@ SIMPLE_JWT = {
 CORS_ALLOWS_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    'https://tech-shop-rho.vercel.app/',  # Frontend URL PRD
+    'https://tech-shop-rho.vercel.app',  # Frontend URL PRD
 ]
 
 

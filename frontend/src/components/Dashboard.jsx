@@ -28,7 +28,7 @@ const Dashboard = () => {
                 }
 
                 // fetch the user data
-                const userResponse = await api.get('http://127.0.0.1:8000/dashboard/', {headers})
+                const userResponse = await api.get('/dashboard/', {headers})
                 const user = userResponse.data;
                 setUserData(user);
                 setIsAdmin(user.is_staff);
