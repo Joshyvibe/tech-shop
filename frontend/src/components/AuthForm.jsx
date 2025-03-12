@@ -84,7 +84,7 @@ const AuthForm = ({ route, method }) => {
         handleGoogleCallback();
     }, [navigate, login]);
 
-    // Rest of the component remains the same...
+
     return (
         <div className="form-container">
             {loading && (
