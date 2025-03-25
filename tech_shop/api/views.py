@@ -148,9 +148,6 @@ class ProductReviewList(APIView):
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
 
-
-    
-
 stripe.api_key = settings.STRIPE_SECRET_KEY
 @csrf_exempt
 def create_payment_intent(request, order_id):
@@ -187,16 +184,6 @@ def mark_order_paid(request, order_id):
     order.save()
 
     return JsonResponse({'message': 'Order marked as paid successfully', "payment_id": payment_id})
-
-
-
-
-
-
-
-
-
-
 
 
 @login_required
